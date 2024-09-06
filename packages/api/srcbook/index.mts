@@ -110,10 +110,11 @@ export async function importSrcbookFromSrcmdFile(srcmdPath: string) {
  * Creates a srcbook directory from srcmd text.
  */
 export async function importSrcbookFromSrcmdText(text: string, directoryBasename?: string) {
+  console.log(text)
   const result = decode(text);
 
   if (result.error) {
-    console.error(result.error);
+    console.error(result.errors);
     throw new Error(`Cannot decode invalid srcmd`);
   }
 

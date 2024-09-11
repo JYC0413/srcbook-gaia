@@ -147,7 +147,7 @@ export async function generateSrcbook(query: string): Promise<NoToolsGenerateTex
   if (resultFix.finishReason !== 'stop') {
     console.warn('Generated a srcbook, but finish_reason was not "stop":', resultFix.finishReason);
   }
-  return resultFix;
+  return finalResult;
 }
 
 export async function healthcheck(): Promise<string> {

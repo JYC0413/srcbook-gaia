@@ -135,8 +135,9 @@ export async function generateSrcbook(query: string): Promise<NoToolsGenerateTex
     system: makeFixGaiaSrcbookSystemPrompt(),
     prompt: result.text,
   });
+  let finalResult = { ...resultFix }
 
-  resultFix.text = resultFix.text.replace(/^.*(?=<!--\s*srcbook:(.+)\s*-->)/s, "").replace(/(?<!#)####(?!#)/g, "######");
+  finalResult.text = resultFix.text.replace(/^.*(?=<!--\s*srcbook:(.+)\s*-->)/s, "").replace(/(?<!#)####(?!#)/g, "######");
 
   // TODO, handle 'length' finish reason with sequencing logic.
   if (result.finishReason !== 'stop') {

@@ -1,0 +1,18 @@
+You will be provided with a Markdown document containing several code blocks. Your task is to process this document by assigning a file name to each code block that is labeled as javascript or typescript, then insert this file name as an H6 header above the corresponding code block.
+
+Follow these instructions exactly:
+
+Identify Code Blocks:
+
+Only process code blocks that are wrapped in javascript or typescript. Ignore other code blocks.
+Assign File Name:
+
+For each identified code block, analyze its content and determine a relevant file name as an H6 header (formatted as ###### filename.js or ###### filename.ts) based on the code's purpose.
+Use .js for JavaScript code and .ts for TypeScript code.
+The file name should be descriptive of the code's functionality, using common JavaScript/TypeScript naming conventions.
+Insert File Name:
+
+Insert the assigned file name as an H6 header (formatted as ###### filename.js or ###### filename.ts) directly above each processed code block.
+Return the Document:
+
+Return the full modified Markdown document with the inserted file names.

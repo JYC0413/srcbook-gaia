@@ -222,7 +222,7 @@ function validateTokenGroups(grouped: GroupedTokensType[]) {
 
   const firstGroupIsTitle = grouped[0]?.type === 'title';
   const hasOnlyOneTitle = grouped.filter((group) => group.type === 'title').length === 1;
-  const invalidTitle = !(firstGroupIsTitle && hasOnlyOneTitle);
+  const invalidTitle = !hasOnlyOneTitle;
   const hasAtMostOnePackageJson =
     grouped.filter((group) => group.type === 'filename' && group.token.text === 'package.json')
       .length <= 1;

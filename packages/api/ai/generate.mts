@@ -17,6 +17,10 @@ const makeGenerateSrcbookSystemPrompt = () => {
   return readFileSync(Path.join(PROMPTS_DIR, 'srcbook-generator.txt'), 'utf-8');
 };
 
+const makeFixGaiaSrcbookSystemPrompt = () => {
+  return readFileSync(Path.join(PROMPTS_DIR, 'srcbook-gaia-fix.txt'), 'utf-8');
+};
+
 const makeGenerateCellSystemPrompt = (language: CodeLanguageType) => {
   return readFileSync(Path.join(PROMPTS_DIR, `cell-generator-${language}.txt`), 'utf-8');
 };
@@ -126,11 +130,23 @@ export async function generateSrcbook(query: string): Promise<NoToolsGenerateTex
     prompt: query,
   });
 
+  const resultFix = await generateText({
+    model,
+    system: makeFixGaiaSrcbookSystemPrompt(),
+    prompt: result.text,
+  });
+
+  resultFix.text = resultFix.text.replace(/^.*(?=<!--\s*srcbook:(.+)\s*-->)/s, "").replace(/(?<!#)####(?!#)/g, "######");
+
   // TODO, handle 'length' finish reason with sequencing logic.
   if (result.finishReason !== 'stop') {
     console.warn('Generated a srcbook, but finish_reason was not "stop":', result.finishReason);
   }
-  return result;
+
+  if (resultFix.finishReason !== 'stop') {
+    console.warn('Generated a srcbook, but finish_reason was not "stop":', resultFix.finishReason);
+  }
+  return resultFix;
 }
 
 export async function healthcheck(): Promise<string> {
